@@ -1,15 +1,43 @@
 
 
+const dateElement = document.getElementById('date');
+const timeElement = document.getElementById('time');
+const offsetElement = document.getElementById('offset');
 
-var span = document.getElementById('span');
 
-function time() {
-  var d = new Date();
-  var s = d.getSeconds();
-  var m = d.getMinutes();
-  var h = d.getHours();
-  span.textContent = 
-    ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+
+function updateDateTime() {
+  const dt = new Date();
+  const hour = dt.getHours();
+  const minute = dt.getMinutes();
+  const second = dt.getSeconds();
+  timeElement.textContent = ("0" + hour).substr(-2) + ":" + ("0" + minute).substr(-2) + ":" + ("0" + second).substr(-2);
+
+  const year = dt.getFullYear();
+  const month = dt.getMonth();
+  const day = dt.getDate();
+
+
+  dateElement.textContent = year + "-" + ("0" + month).substr(-2) + "-" + ("0" + day).substr(-2);
+
+
 }
 
-setInterval(time, 1000);
+setInterval(updateDateTime, 1000);
+
+const offsetMinutes = new Date().getTimezoneOffset() * -1;
+
+const hours = Math.floor(offsetMinutes / 60);          
+const minutes = offsetMinutes % 60;
+
+let sign = " ";
+
+if (offsetMinutes > 0) {
+  sign = "+"
+} else {
+  sign = "-"
+}
+
+
+offsetElement.textContent = "UTC " + sign + ("0" + hours).substr(-2) + ":" + ("0" + minutes).substr(-2);
+
