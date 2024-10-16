@@ -1,5 +1,4 @@
 
-
 const dateElement = document.getElementById('date');
 const timeElement = document.getElementById('time');
 const offsetElement = document.getElementById('offset');
@@ -23,7 +22,7 @@ function updateDateTime() {
 
 }
 
-setInterval(updateDateTime, 1000);
+setInterval(updateDateTime, 200);
 
 const offsetMinutes = new Date().getTimezoneOffset() * -1;
 
@@ -51,4 +50,36 @@ function openFullscreen() {
   } 
 }
 
-bodyEl.addEventListener("click", openFullscreen, false);
+bodyEl.addEventListener("click", async () => {
+  openFullscreen();
+  await setWakeLockAsync();
+
+}, false);
+
+
+
+
+
+async function setWakeLockAsync() { 
+
+  if (!("wakeLock" in navigator)) {
+    console.error("Wake lock not supported");
+    return;
+  }
+
+  try {
+    const lock = await navigator.wakeLock.request("screen");
+
+    lock.addEventListener("release", async () => {
+      console.log("wakeLock released " + new Date());
+      await setWakeLockAsync();
+    });
+
+
+
+    console.log("Locked");
+  } catch (ex) {
+    console.log(ex);
+  }
+}
+const wakeLock = navigator.wakeLock;
