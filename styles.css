@@ -29,7 +29,7 @@ body {
 
 
 span {
-  color: rgb(216, 216, 216);
+  /* color: rgb(216, 216, 216); */
 }
 
 .clock-container {
@@ -65,5 +65,5 @@ span {
 }
 
 .date-container > span {
-  color: rgb(195, 195, 195);
+  /* color: rgb(195, 195, 195); */
 }

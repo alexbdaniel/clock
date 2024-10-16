@@ -41,3 +41,14 @@ if (offsetMinutes > 0) {
 
 offsetElement.textContent = "UTC " + sign + ("0" + hours).substr(-2) + ":" + ("0" + minutes).substr(-2);
 
+const bodyEl = document.getElementById("bodyid");
+
+function openFullscreen() {
+  if (bodyEl.requestFullscreen) {
+    bodyEl.requestFullscreen();
+  } else if (bodyEl.webkitRequestFullscreen) { /* Safari */
+    bodyEl.webkitRequestFullscreen();
+  } 
+}
+
+bodyEl.addEventListener("click", openFullscreen, false);
